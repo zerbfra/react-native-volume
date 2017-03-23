@@ -4,7 +4,7 @@ const isAndroid = () => Platform.OS !== 'ios'
 const RNVolume = isAndroid ? NativeModules.RNVolume : undefined
 
 export function getVolume () {
-  return RNVolume ? RNVolume.getVolume() : undefined
+  return RNVolume ? RNVolume.getVolume() : 0
 }
 
 export function setVolume (volume) {
@@ -20,7 +20,7 @@ export function unmuteVolume () {
 }
 
 export function getMaxVolume () {
-  return RNVolume ? RNVolume.maxVolume : undefined
+  return RNVolume ? RNVolume.maxVolume : 1
 }
 
 export function onVolumeChange (listener) {
