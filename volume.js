@@ -4,7 +4,7 @@ const isAndroid = () => Platform.OS !== 'ios'
 const RNVolume = isAndroid ? NativeModules.RNVolume : undefined
 
 export function getVolume () {
-  return RNVolume ? RNVolume.getVolume() : 0
+  return RNVolume ? RNVolume.getVolume() : Promise.resolve(0)
 }
 
 export function setVolume (volume) {
