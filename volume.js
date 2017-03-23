@@ -1,29 +1,30 @@
-import { NativeModules, NativeAppEventEmitter } from 'react-native';
+import { NativeModules, NativeAppEventEmitter, Platform } from 'react-native'
 
-const RNVolume = NativeModules.RNVolume;
+const isAndroid = () => Platform.OS !== 'ios'
+const RNVolume = isAndroid ? NativeModules.RNVolume : undefined
 
-export function getVolume() {
-	return RNVolume.getVolume();
+export function getVolume () {
+  return RNVolume ? RNVolume.getVolume() : undefined
 }
 
-export function setVolume(volume) {
-	RNVolume.setVolume(volume);
+export function setVolume (volume) {
+  if (RNVolume) RNVolume.setVolume(volume)
 }
 
-export function muteVolume() {
-	RNVolume.muteVolume();
+export function muteVolume () {
+  if (RNVolume) RNVolume.muteVolume()
 }
 
-export function unmuteVolume() {
-	RNVolume.unmuteVolume();
+export function unmuteVolume () {
+  if (RNVolume) RNVolume.unmuteVolume()
 }
 
-export function getMaxVolume() {
-	return RNVolume.maxVolume;
+export function getMaxVolume () {
+  return RNVolume ? RNVolume.maxVolume : undefined
 }
 
-export function onVolumeChange(listener) {
-	NativeAppEventEmitter.addListener('volumeChange', data => {
-		listener(data.volume);
-	});
+export function onVolumeChange (listener) {
+  NativeAppEventEmitter.addListener('volumeChange', data => {
+    listener(data.volume)
+  })
 }
